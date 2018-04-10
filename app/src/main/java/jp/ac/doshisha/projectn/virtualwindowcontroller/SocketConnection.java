@@ -22,14 +22,6 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
         IP_ADDRESS = ip;
     }
 
-    public static String getIpAddress() {
-        return IP_ADDRESS;
-    }
-
-    public static String getPORT() {
-        return PORT;
-    }
-
     public static void setPORT(String PORT) {
         SocketConnection.PORT = PORT;
     }
@@ -50,8 +42,14 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
             e.printStackTrace();
         }
 
-        if(str[0].equals("LIVE")) {
-            sendCommand("LIVE");
+        if (str.length == 1) {
+            sendCommand(str[0]);
+        }
+        else if(str.length == 2) {
+            sendCommand(str[0] + "\r\n" + str[1]);
+        }
+        else {
+
         }
         return null;
     }
