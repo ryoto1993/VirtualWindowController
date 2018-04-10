@@ -5,14 +5,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="jp.ac.doshisha.projectn.virtualwindowcontroller.MainActivity">
+        tools:context="jp.ac.doshisha.projectn.virtualwindowcontroller.MainActivity"
+        android:background="@drawable/cork_back">
 
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/cork_back" android:id="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:scaleType="center"/>
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -29,12 +24,16 @@
                     android:text="@string/btn_live"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:id="@+id/button_live" android:layout_weight="1"
-                    android:layout_margin="4dp" android:textSize="@dimen/btn_textSize"/>
+                    android:textSize="@dimen/btn_textSize"
+                    android:background="@drawable/main_button" android:layout_margin="8dp"
+                    style="@android:style/Widget.Button"/>
             <Button
                     android:text="@string/btn_blank"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:id="@+id/button_blank" android:layout_weight="1"
-                    android:layout_margin="4dp" android:textSize="@dimen/btn_textSize"/>
+                    android:layout_height="match_parent" android:id="@+id/button_blank"
+                    android:textSize="@dimen/btn_textSize"
+                    android:background="@drawable/main_button" android:layout_margin="8dp" android:layout_weight="1"
+                    style="@android:style/Widget.Button"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="horizontal"
@@ -44,12 +43,16 @@
                     android:text="@string/btn_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:id="@+id/button_image" android:layout_weight="1"
-                    android:layout_margin="4dp" android:textSize="@dimen/btn_textSize"/>
+                    android:textSize="@dimen/btn_textSize"
+                    android:background="@drawable/main_button" android:layout_margin="8dp"
+                    style="@android:style/Widget.Button"/>
             <Button
                     android:text="@string/btn_video"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:id="@+id/button_video" android:layout_weight="1"
-                    android:layout_margin="4dp" android:textSize="@dimen/btn_textSize"/>
+                    android:textSize="@dimen/btn_textSize"
+                    android:background="@drawable/main_button" android:layout_margin="8dp"
+                    style="@android:style/Widget.Button"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
