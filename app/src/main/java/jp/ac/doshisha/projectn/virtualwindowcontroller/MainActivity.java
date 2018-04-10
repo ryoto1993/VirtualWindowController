@@ -6,23 +6,21 @@ import android.view.View;
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
-    SocketConnection socketConnection = new SocketConnection();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Socketの設定
-        socketConnection.setIpAddress("172.20.11.96");
-        socketConnection.setPORT("50005");
+        SocketConnection.setIpAddress("172.20.11.182");
+        SocketConnection.setPORT("50005");
     }
 
     public void buttonOnClick(View view) {
         switch (view.getId()) {
             case R.id.button_live:
                 Log.d("button", "live");
-                socketConnection.execute("LIVE");
+                new SocketConnection().execute("LIVE");
                 break;
             case R.id.button_image:
                 Log.d("button", "image");
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.button_blank:
                 Log.d("button", "blank");
-                socketConnection.execute("BLANK");
+                new SocketConnection().execute("BLANK");
                 break;
         }
     }

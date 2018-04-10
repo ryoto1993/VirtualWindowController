@@ -1,6 +1,7 @@
 package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.*;
 import java.net.InetSocketAddress;
@@ -37,7 +38,7 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
         InetSocketAddress endpoint = new InetSocketAddress(IP_ADDRESS, Integer.parseInt(PORT));
         try {
             socket = new Socket();
-            socket.connect(endpoint);
+            socket.connect(endpoint, 1000);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,7 +72,7 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
             ow.close();
 
             // サーバーからの"OK"を待機
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            // BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         }
         catch (Exception e) {
             System.out.println("Exception: " + e);
