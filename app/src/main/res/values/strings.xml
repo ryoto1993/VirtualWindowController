@@ -5,4 +5,5 @@
     <string name="btn_blank">画面オフ</string>
     <string name="btn_image">静止画</string>
     <string name="btn_video">風景動画</string>
+    <string name="toast_connection_error">接続エラー</string>
 </resources>

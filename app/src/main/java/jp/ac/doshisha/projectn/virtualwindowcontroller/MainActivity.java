@@ -1,19 +1,28 @@
 package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
+    private static Context applicationContext = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Socketの設定
-        SocketConnection.setIpAddress("172.20.11.182");
+        SocketConnection.setIpAddress("192.168.1.16");
         SocketConnection.setPORT("50005");
+
+        applicationContext = getApplicationContext();
+    }
+
+    public static Context getAppContext() {
+        return applicationContext;
     }
 
     public void buttonOnClick(View view) {
@@ -24,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.button_image:
                 Log.d("button", "image");
+                new SocketConnection().execute("IMAGE");
                 break;
             case R.id.button_video:
                 Log.d("button", "video");
+                new SocketConnection().execute("VIDEO");
                 break;
             case R.id.button_blank:
                 Log.d("button", "blank");

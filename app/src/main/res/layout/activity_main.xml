@@ -26,14 +26,16 @@
                     android:layout_height="match_parent" android:id="@+id/button_live" android:layout_weight="1"
                     android:textSize="@dimen/btn_textSize"
                     android:background="@drawable/main_button" android:layout_margin="8dp"
-                    style="@android:style/Widget.Button" android:onClick="buttonOnClick"/>
+                    style="@android:style/Widget.Button" android:onClick="buttonOnClick"
+                    android:textColor="@color/buttonWhite"/>
             <Button
                     android:text="@string/btn_blank"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:id="@+id/button_blank"
                     android:textSize="@dimen/btn_textSize"
                     android:background="@drawable/main_button" android:layout_margin="8dp" android:layout_weight="1"
-                    style="@android:style/Widget.Button" android:onClick="buttonOnClick"/>
+                    style="@android:style/Widget.Button" android:onClick="buttonOnClick"
+                    android:textColor="@color/buttonWhite"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="horizontal"
@@ -45,14 +47,16 @@
                     android:layout_height="match_parent" android:id="@+id/button_image" android:layout_weight="1"
                     android:textSize="@dimen/btn_textSize"
                     android:background="@drawable/main_button" android:layout_margin="8dp"
-                    style="@android:style/Widget.Button" android:onClick="buttonOnClick"/>
+                    style="@android:style/Widget.Button" android:onClick="buttonOnClick"
+                    android:textColor="@color/buttonWhite"/>
             <Button
                     android:text="@string/btn_video"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:id="@+id/button_video" android:layout_weight="1"
                     android:textSize="@dimen/btn_textSize"
                     android:background="@drawable/main_button" android:layout_margin="8dp"
-                    style="@android:style/Widget.Button" android:onClick="buttonOnClick"/>
+                    style="@android:style/Widget.Button" android:onClick="buttonOnClick"
+                    android:textColor="@color/buttonWhite"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

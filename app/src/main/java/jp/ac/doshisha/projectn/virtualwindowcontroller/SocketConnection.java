@@ -1,7 +1,8 @@
 package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
 import android.os.AsyncTask;
-import android.util.Log;
+import android.os.Handler;
+import android.widget.Toast;
 
 import java.io.*;
 import java.net.InetSocketAddress;
@@ -18,6 +19,7 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
     static private String IP_ADDRESS;
 
     private Socket socket;
+    Handler handler = new Handler();
 
     public static void setIpAddress(String ip) {
         IP_ADDRESS = ip;
@@ -40,7 +42,9 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
             socket = new Socket();
             socket.connect(endpoint, 1000);
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            handler.post(() -> Toast.makeText(MainActivity.getAppContext(), R.string.toast_connection_error, Toast.LENGTH_LONG).show());
+
         }
 
         if (str.length == 1) {
