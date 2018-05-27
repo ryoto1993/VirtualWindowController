@@ -43,8 +43,7 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
             socket.connect(endpoint, 1000);
         } catch (IOException e) {
             // e.printStackTrace();
-            handler.post(() -> Toast.makeText(MainActivity.getAppContext(), R.string.toast_connection_error, Toast.LENGTH_LONG).show());
-
+            handler.post(() -> Toast.makeText(StartActivity.getAppContext(), R.string.toast_connection_error, Toast.LENGTH_LONG).show());
         }
 
         if (str.length == 1) {
