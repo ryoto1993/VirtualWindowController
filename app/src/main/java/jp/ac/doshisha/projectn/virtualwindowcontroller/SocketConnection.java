@@ -29,6 +29,8 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
         SocketConnection.PORT = PORT;
     }
 
+    public static String getIpAddress() { return IP_ADDRESS; }
+
     /**
      * ソケット通信の実行<br>
      * modeコマンドとdataコマンドを指定してSocketConnection.execute(mode, data)を実行することにより擬似窓の遠隔制御が実現できます。<br>

@@ -2,7 +2,9 @@ package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +18,9 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         // Socketの設定
-        SocketConnection.setIpAddress("192.168.0.12");
-        SocketConnection.setPORT("50005");
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SocketConnection.setIpAddress(sp.getString("pref_ip", ""));
+        SocketConnection.setPORT(sp.getString("pref_port", ""));
 
         applicationContext = getApplicationContext();
     }
