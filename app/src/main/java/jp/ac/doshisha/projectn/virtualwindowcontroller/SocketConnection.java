@@ -2,6 +2,7 @@ package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.*;
@@ -21,15 +22,13 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
     private Socket socket;
     Handler handler = new Handler();
 
-    public static void setIpAddress(String ip) {
+    static void setIpAddress(String ip) {
         IP_ADDRESS = ip;
     }
 
-    public static void setPORT(String PORT) {
+    static void setPORT(String PORT) {
         SocketConnection.PORT = PORT;
     }
-
-    public static String getIpAddress() { return IP_ADDRESS; }
 
     /**
      * ソケット通信の実行<br>
@@ -41,46 +40,61 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
     protected String doInBackground(String... str) {
         InetSocketAddress endpoint = new InetSocketAddress(IP_ADDRESS, Integer.parseInt(PORT));
         try {
+            System.out.println("IP:" + IP_ADDRESS + " PORT:" + PORT);
             socket = new Socket();
             socket.connect(endpoint, 1000);
         } catch (IOException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
             handler.post(() -> Toast.makeText(StartActivity.getAppContext(), R.string.toast_connection_error, Toast.LENGTH_LONG).show());
+            return null;
         }
 
         if (str.length == 1) {
-            sendCommand(str[0]);
+            return sendCommand(str[0]);
         }
         else if(str.length == 2) {
-            sendCommand(str[0] + "\r\n" + str[1]);
+            return sendCommand(str[0] + "\r\n" + str[1]);
         }
         else {
-
+            return null;
         }
-        return null;
     }
 
     /**
      * コマンド送出とチェック<br>
      * @param command 送出コマンド
      */
-    private void sendCommand(String command) {
+    private String sendCommand(String command) {
         try {
-            // サーバーに数値を送信
-            OutputStreamWriter ow = new OutputStreamWriter(socket.getOutputStream());
-            BufferedWriter bw = new BufferedWriter(ow);
-            ow.write(command);
-            ow.flush();
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-            // close
+            bw.write(command);
+            bw.flush();
+
             bw.close();
-            ow.close();
 
             // サーバーからの"OK"を待機
-            // BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String result = "";
+            String r;
+            while((r = br.readLine()) != null) {
+                result += r;
+                result += "\n";
+            }
+            int endindex = result.length() - 2;
+            result = result.substring(0, endindex);
+            return result;
         }
         catch (Exception e) {
             System.out.println("Exception: " + e);
+            return "FAILED TO CONNECT.";
         }
     }
+
+    @Override
+    protected void onPostExecute(String s) {
+        System.out.println(s);
+    }
 }
+
+

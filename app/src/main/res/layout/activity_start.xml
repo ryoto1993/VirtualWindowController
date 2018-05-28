@@ -18,8 +18,8 @@
             app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp">
         <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" android:id="@+id/textView" android:layout_weight="1"
-                android:textColor="@color/buttonWhite" android:textSize="24sp" android:text="@string/label_start_page"/>
+                android:layout_height="wrap_content" android:id="@+id/statusText" android:layout_weight="1"
+                android:textColor="@color/buttonWhite" android:textSize="24sp"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="vertical"
@@ -31,11 +31,11 @@
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp">
         <Button
-                android:text="Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/button_setting"
                 android:background="@drawable/main_button" android:textColor="@color/buttonWhite"
-                android:onClick="buttonOnClick"/>
+                android:drawableStart="@android:drawable/ic_menu_preferences"
+                android:onClick="buttonOnClick" android:text="@string/btn_setting"/>
     </LinearLayout>
     <LinearLayout
             android:id="@+id/main_layout"

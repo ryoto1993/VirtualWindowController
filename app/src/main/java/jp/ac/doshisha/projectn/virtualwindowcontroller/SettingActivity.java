@@ -63,6 +63,8 @@ public class SettingActivity extends PreferenceActivity {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             setSummaries(sharedPreferences);
+            SocketConnection.setIpAddress(sharedPreferences.getString("pref_ip", ""));
+            SocketConnection.setPORT(sharedPreferences.getString("pref_port", ""));
         }
     }
 }

@@ -22,6 +22,9 @@ public class StartActivity extends AppCompatActivity {
         SocketConnection.setIpAddress(sp.getString("pref_ip", ""));
         SocketConnection.setPORT(sp.getString("pref_port", ""));
 
+        // Connectionの確認
+
+
         applicationContext = getApplicationContext();
     }
 
