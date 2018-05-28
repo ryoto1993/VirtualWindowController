@@ -71,7 +71,6 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
 
             bw.write(command);
             bw.flush();
-
             bw.close();
 
             // サーバーからの"OK"を待機
@@ -83,6 +82,10 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
             }
             int endindex = result.length() - 2;
             result = result.substring(0, endindex);
+
+            br.close();
+            socket.close();
+
             return result;
         }
         catch (Exception e) {
