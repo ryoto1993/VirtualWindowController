@@ -50,6 +50,14 @@ public class StartActivity extends AppCompatActivity {
                 Log.d("button", "blank");
                 new SocketConnection().execute("BLANK");
                 break;
+            case R.id.button_next:
+                Log.d("button", "next");
+                new SocketConnection().execute("NEXT");
+                break;
+            case R.id.button_previous:
+                Log.d("button", "previous");
+                new SocketConnection().execute("PREVIOUS");
+                break;
             case R.id.button_setting:
                 Intent intent = new Intent(StartActivity.this, SettingActivity.class);
                 startActivity(intent);

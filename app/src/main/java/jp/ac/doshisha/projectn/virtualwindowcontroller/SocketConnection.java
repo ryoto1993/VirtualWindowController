@@ -66,14 +66,14 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
      */
     private String sendCommand(String command) {
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-            bw.write(command);
+            bw.write(command + "\r\n");
             bw.flush();
             bw.close();
 
             // サーバーからの"OK"を待機
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String result = "";
             String r;
             while((r = br.readLine()) != null) {
@@ -92,6 +92,7 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
             System.out.println("Exception: " + e);
             return "FAILED TO CONNECT.";
         }
+
     }
 
     @Override
