@@ -14,7 +14,7 @@ import java.net.Socket;
  * @author Ryoto Tomioka
  * @version 1.0
  */
-public class SocketConnection extends AsyncTask<String, Integer, String>{
+public class SocketConnection extends AsyncTask<String, Void, String>{
 
     static private String PORT;
     static private String IP_ADDRESS;
@@ -58,6 +58,7 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
         else {
             return null;
         }
+
     }
 
     /**
@@ -66,14 +67,31 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
      */
     private String sendCommand(String command) {
         try {
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            InputStream in = socket.getInputStream();
+            OutputStream out = socket.getOutputStream();
 
-            bw.write(command + "\r\n");
+            BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+
+            bw.write(command + "\n");
             bw.flush();
-            bw.close();
 
             // サーバーからの"OK"を待機
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            /*String resData = "";
+            String r;
+            while((r = br.readLine()) != null) {
+                resData += r;
+                resData += "\n";
+            }
+            int endIndex = resData.length() - 1;
+            resData = resData.substring(0, endIndex);*/
+            String resData = br.readLine();
+
+            in.close();
+            out.close();
+            socket.close();
+
+            /*
             String result = "";
             String r;
             while((r = br.readLine()) != null) {
@@ -85,8 +103,9 @@ public class SocketConnection extends AsyncTask<String, Integer, String>{
 
             br.close();
             socket.close();
+            */
 
-            return result;
+            return resData;
         }
         catch (Exception e) {
             System.out.println("Exception: " + e);
