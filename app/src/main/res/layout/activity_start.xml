@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="jp.ac.doshisha.projectn.virtualwindowcontroller.StartActivity"
-        android:background="@drawable/sky_back3">
+        android:background="@drawable/sky_back4">
 
 
     <LinearLayout
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/sidebar_button_height" android:id="@+id/button_next"
                 android:background="@drawable/ripple_button" android:textColor="@color/buttonWhite"
-                android:drawableStart="@android:drawable/ic_media_next"
+                android:drawableStart="@drawable/arrow_right"
                 android:onClick="buttonOnClick"
                 android:layout_marginBottom="8dp" android:text="@string/btn_next"
                 android:textSize="@dimen/btn_sideTextSize"/>
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/sidebar_button_height" android:id="@+id/button_previous"
                 android:background="@drawable/ripple_button" android:textColor="@color/buttonWhite"
-                android:drawableStart="@android:drawable/ic_media_previous"
+                android:drawableStart="@drawable/arrow_left"
                 android:onClick="buttonOnClick"
                 android:layout_marginBottom="8dp" android:text="@string/btn_previous"
                 android:textSize="@dimen/btn_sideTextSize"/>
@@ -54,7 +54,7 @@
             android:layout_width="@dimen/sidebar_width"
             android:layout_height="30dp" android:id="@+id/button_setting"
             android:background="@drawable/ripple_button" android:textColor="@color/buttonWhite"
-            android:drawableStart="@android:drawable/ic_menu_preferences"
+            android:drawableStart="@drawable/account_settings_variant"
             android:onClick="buttonOnClick" android:text="@string/btn_setting"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
