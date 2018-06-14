@@ -76,34 +76,12 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
             bw.write(command + "\n");
             bw.flush();
 
-            // サーバーからの"OK"を待機
-            /*String resData = "";
-            String r;
-            while((r = br.readLine()) != null) {
-                resData += r;
-                resData += "\n";
-            }
-            int endIndex = resData.length() - 1;
-            resData = resData.substring(0, endIndex);*/
+            // サーバからのOKを待機
             String resData = br.readLine();
 
             in.close();
             out.close();
             socket.close();
-
-            /*
-            String result = "";
-            String r;
-            while((r = br.readLine()) != null) {
-                result += r;
-                result += "\n";
-            }
-            int endindex = result.length() - 2;
-            result = result.substring(0, endindex);
-
-            br.close();
-            socket.close();
-            */
 
             return resData;
         }
