@@ -25,6 +25,8 @@
                 android:name=".SettingActivity"
                 android:screenOrientation="landscape">
         </activity>
+        <activity android:name=".ImageActivity">
+        </activity>
     </application>
 
 </manifest>

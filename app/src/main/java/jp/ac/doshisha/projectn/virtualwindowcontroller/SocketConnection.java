@@ -1,7 +1,11 @@
 package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.util.Base64;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +54,11 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
         }
 
         if (str.length == 1) {
-            return sendCommand(str[0]);
+            if (str[0].equals("GET_IMAGE_THUMBS")) {
+                return fetchImageThumbs();
+            } else {
+                return sendCommand(str[0]);
+            }
         }
         else if(str.length == 2) {
             return sendCommand(str[0] + "\r\n" + str[1]);
@@ -58,7 +66,6 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
         else {
             return null;
         }
-
     }
 
     /**
@@ -89,7 +96,53 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
             System.out.println("Exception: " + e);
             return "FAILED TO CONNECT.";
         }
+    }
 
+    /**
+     * サムネイル画像の取得
+     * @return
+     */
+    private String fetchImageThumbs() {
+        try {
+            InputStream in = socket.getInputStream();
+            OutputStream out = socket.getOutputStream();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+
+            bw.write("GET_IMAGE_THUMBS" + "\n");
+            bw.flush();
+
+            // サーバからサムネイル数を待機
+            String resData = br.readLine();
+            System.out.println(resData);
+
+            // debug (base64 1枚目)
+            resData = br.readLine();
+            String finalResData = resData;
+            StartActivity.runOnUI(() -> StartActivity.imageView.setImageBitmap(decodeBase64(finalResData)));
+
+            // 最終レスポンス
+            String response = br.readLine();
+
+            // 終了処理
+            in.close();
+            out.close();
+            socket.close();
+
+            return response;
+
+        }
+        catch (Exception e) {
+            System.out.println("Exception: " + e);
+            return null;
+        }
+    }
+
+    public static Bitmap decodeBase64(String input)
+    {
+        byte[] decodedBytes = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 
     @Override
