@@ -57,6 +57,9 @@ public class StartActivity extends AppCompatActivity {
             case R.id.button_blank:
                 new SocketConnection(this).execute("BLANK");
                 break;
+            case R.id.button_home:
+                new SocketConnection(this).execute("HOME");
+                break;
             case R.id.button_next:
                 new SocketConnection(this).execute("NEXT");
                 break;

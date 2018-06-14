@@ -8,6 +8,7 @@
     <string name="btn_setting">管理者用</string>
     <string name="btn_next">次画像・動画</string>
     <string name="btn_previous">前画像・動画</string>
+    <string name="btn_menu">ホーム画面</string>
     <string name="toast_connection_error">接続エラー</string>
     <string name="title_activity_settings">Settings</string>
     <string name="system_concept_name">同志社大学・奈良県立医科大学 擬似窓システム</string>
