@@ -121,7 +121,8 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
     }
 
     /**
-     * サムネイル画像の取得
+     * サムネイル画像の取得<br>
+     * このメソッドはImageActivityからしか呼び出せません！
      * @return
      */
     private String fetchImageThumbs() {
@@ -136,19 +137,21 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
             bw.flush();
 
             // サーバからサムネイル数を待機
-            String resData = br.readLine();
-            System.out.println(resData);
+            int num = Integer.parseInt(br.readLine());
+            System.out.println(num);
 
-            // debug (base64 1枚目)
-            resData = br.readLine();
-            String finalResData = resData;
+            String resData;
+            for (int i=0; i<num; i++) {
+                // Read Images as base64 string
+                resData = br.readLine();
+                String finalResData = resData;
 
-            StartActivity.runOnUI(() -> {
-                StartActivity act = (StartActivity)parentActivity;
-                // ImageView view = act.findViewById(R.id.debugImageView);
-                // view.setImageBitmap(decodeBase64(finalResData));
-            });
-
+                ImageActivity act = (ImageActivity)parentActivity;
+                act.runOnUI(() -> {
+                    System.out.println(finalResData);
+                    act.addThumbnailButton(decodeBase64(finalResData));
+                });
+            }
 
             // 最終レスポンス
             String response = br.readLine();
@@ -183,8 +186,8 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
 
             String res = br.readLine();
 
-            StartActivity.runOnUI(() -> {
-                StartActivity act = (StartActivity)parentActivity;
+            StartActivity act = (StartActivity)parentActivity;
+            act.runOnUI(() -> {
                 TextView view = act.findViewById(R.id.connectionText);
                 String txt = "CONNECTED - " + res;
                 view.setText(txt);

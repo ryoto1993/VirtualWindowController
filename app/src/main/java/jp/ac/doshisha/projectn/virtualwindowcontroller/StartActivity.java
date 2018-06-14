@@ -12,7 +12,7 @@ import android.view.View;
 
 public class StartActivity extends AppCompatActivity {
     private static Context applicationContext = null;
-    static Handler UIHandler = new Handler(Looper.getMainLooper());
+    Handler UIHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class StartActivity extends AppCompatActivity {
         return applicationContext;
     }
 
-    public static void runOnUI(Runnable runnable) {
+    public void runOnUI(Runnable runnable) {
         UIHandler.post(runnable);
     }
 
