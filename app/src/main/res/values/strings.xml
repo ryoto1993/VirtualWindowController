@@ -4,7 +4,7 @@
     <string name="btn_live">ライブ映像</string>
     <string name="btn_blank">画面オフ</string>
     <string name="btn_image">静止画</string>
-    <string name="btn_video">風景動画</string>
+    <string name="btn_video">動画</string>
     <string name="btn_setting">管理者用</string>
     <string name="btn_next">次画像・動画</string>
     <string name="btn_previous">前画像・動画</string>
