@@ -25,7 +25,7 @@ public class StartActivity extends AppCompatActivity {
         SocketConnection.setPORT(sp.getString("pref_port", ""));
 
         // Connectionの確認
-        new SocketConnection(this).execute("ECHO", "Check for Status!");
+        new SocketConnection(this).execute("GET_MODE");
 
         applicationContext = getApplicationContext();
     }
