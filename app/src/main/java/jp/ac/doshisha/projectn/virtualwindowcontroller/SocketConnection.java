@@ -2,6 +2,7 @@ package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -65,6 +66,13 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
 
         if (str.length == 1) {
             switch (str[0]) {
+                case "IMAGE":
+                    String res = sendCommand("IMAGE");
+                    if (res.equals("OK")) {
+                        Intent intent_image = new Intent(parentActivity, ImageActivity.class);
+                        parentActivity.startActivity(intent_image);
+                    }
+                    return "OK";
                 case "GET_MODE":
                     updateModeText();
                     return "OK";

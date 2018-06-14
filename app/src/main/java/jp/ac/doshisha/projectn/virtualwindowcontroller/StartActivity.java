@@ -42,18 +42,23 @@ public class StartActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.button_live:
                 new SocketConnection(this).execute("LIVE");
+                new SocketConnection(this).execute("GET_MODE");
                 break;
             case R.id.button_image:
                 new SocketConnection(this).execute("IMAGE");
+                new SocketConnection(this).execute("GET_MODE");
                 break;
             case R.id.button_video:
                 new SocketConnection(this).execute("VIDEO");
+                new SocketConnection(this).execute("GET_MODE");
                 break;
             case R.id.button_blank:
                 new SocketConnection(this).execute("BLANK");
+                new SocketConnection(this).execute("GET_MODE");
                 break;
             case R.id.button_home:
                 new SocketConnection(this).execute("HOME");
+                new SocketConnection(this).execute("GET_MODE");
                 break;
             case R.id.button_next:
                 new SocketConnection(this).execute("NEXT");
@@ -61,12 +66,9 @@ public class StartActivity extends AppCompatActivity {
             case R.id.button_previous:
                 new SocketConnection(this).execute("PREVIOUS");
                 break;
-            case R.id.button_debug:
-                new SocketConnection(this).execute("GET_MODE");
-                break;
             case R.id.button_setting:
-                Intent intent = new Intent(StartActivity.this, SettingActivity.class);
-                startActivity(intent);
+                Intent intent_setting = new Intent(StartActivity.this, SettingActivity.class);
+                startActivity(intent_setting);
                 break;
         }
     }

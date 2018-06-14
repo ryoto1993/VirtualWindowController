@@ -58,14 +58,6 @@
                 android:onClick="buttonOnClick"
                 android:layout_marginBottom="8dp" android:text="@string/btn_menu"
                 android:textSize="@dimen/btn_sideTextSize"/>
-        <Button
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/sidebar_button_height" android:id="@+id/button_debug"
-                android:background="@drawable/ripple_button" android:textColor="@color/buttonWhite"
-                android:drawableStart="@drawable/cow"
-                android:onClick="buttonOnClick"
-                android:layout_marginBottom="8dp" android:text="Debug!!"
-                android:textSize="@dimen/btn_sideTextSize"/>
     </LinearLayout>
     <Button
             android:layout_width="@dimen/sidebar_width"
