@@ -1,12 +1,13 @@
 package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Base64;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.*;
@@ -24,6 +25,9 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
     static private String IP_ADDRESS;
 
     private Socket socket;
+    @SuppressLint("StaticFieldLeak")
+    private Activity parentActivity;
+
     Handler handler = new Handler();
 
     static void setIpAddress(String ip) {
@@ -32,6 +36,11 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
 
     static void setPORT(String PORT) {
         SocketConnection.PORT = PORT;
+    }
+
+
+    SocketConnection(Activity activity) {
+        parentActivity = activity;
     }
 
     /**
@@ -61,7 +70,7 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
             }
         }
         else if(str.length == 2) {
-            return sendCommand(str[0] + "\r\n" + str[1]);
+            return sendCommand(str[0] + "\n" + str[1]);
         }
         else {
             return null;
@@ -120,7 +129,13 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
             // debug (base64 1枚目)
             resData = br.readLine();
             String finalResData = resData;
-            StartActivity.runOnUI(() -> StartActivity.imageView.setImageBitmap(decodeBase64(finalResData)));
+
+            StartActivity.runOnUI(() -> {
+                StartActivity act = (StartActivity)parentActivity;
+                ImageView view = act.findViewById(R.id.debugImageView);
+                view.setImageBitmap(decodeBase64(finalResData));
+            });
+
 
             // 最終レスポンス
             String response = br.readLine();

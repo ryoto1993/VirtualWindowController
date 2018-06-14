@@ -1,5 +1,6 @@
 package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,8 +17,7 @@ import android.widget.ImageView;
 
 public class StartActivity extends AppCompatActivity {
     private static Context applicationContext = null;
-    public static ImageView imageView;
-    public static Handler UIHandler;
+    static Handler UIHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,7 @@ public class StartActivity extends AppCompatActivity {
         SocketConnection.setPORT(sp.getString("pref_port", ""));
 
         // Connectionの確認
-
-        imageView = findViewById(R.id.debugImageView);
+        new SocketConnection(this).execute("ECHO", "Check for Status!");
 
         applicationContext = getApplicationContext();
     }
@@ -40,10 +39,6 @@ public class StartActivity extends AppCompatActivity {
         return applicationContext;
     }
 
-    static
-    {
-        UIHandler = new Handler(Looper.getMainLooper());
-    }
     public static void runOnUI(Runnable runnable) {
         UIHandler.post(runnable);
     }
@@ -51,25 +46,25 @@ public class StartActivity extends AppCompatActivity {
     public void buttonOnClick(View view) {
         switch (view.getId()) {
             case R.id.button_live:
-                new SocketConnection().execute("LIVE");
+                new SocketConnection(this).execute("LIVE");
                 break;
             case R.id.button_image:
-                new SocketConnection().execute("IMAGE");
+                new SocketConnection(this).execute("IMAGE");
                 break;
             case R.id.button_video:
-                new SocketConnection().execute("VIDEO");
+                new SocketConnection(this).execute("VIDEO");
                 break;
             case R.id.button_blank:
-                new SocketConnection().execute("BLANK");
+                new SocketConnection(this).execute("BLANK");
                 break;
             case R.id.button_next:
-                new SocketConnection().execute("NEXT");
+                new SocketConnection(this).execute("NEXT");
                 break;
             case R.id.button_previous:
-                new SocketConnection().execute("PREVIOUS");
+                new SocketConnection(this).execute("PREVIOUS");
                 break;
             case R.id.button_debug:
-                new SocketConnection().execute("GET_IMAGE_THUMBS");
+                new SocketConnection(this).execute("GET_IMAGE_THUMBS");
                 break;
             case R.id.button_setting:
                 Intent intent = new Intent(StartActivity.this, SettingActivity.class);
