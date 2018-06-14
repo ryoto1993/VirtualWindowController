@@ -1,19 +1,14 @@
 package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 public class StartActivity extends AppCompatActivity {
     private static Context applicationContext = null;
@@ -67,7 +62,7 @@ public class StartActivity extends AppCompatActivity {
                 new SocketConnection(this).execute("PREVIOUS");
                 break;
             case R.id.button_debug:
-                new SocketConnection(this).execute("GET_IMAGE_THUMBS");
+                new SocketConnection(this).execute("GET_MODE");
                 break;
             case R.id.button_setting:
                 Intent intent = new Intent(StartActivity.this, SettingActivity.class);

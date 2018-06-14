@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Base64;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.*;
@@ -63,10 +64,14 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
         }
 
         if (str.length == 1) {
-            if (str[0].equals("GET_IMAGE_THUMBS")) {
-                return fetchImageThumbs();
-            } else {
-                return sendCommand(str[0]);
+            switch (str[0]) {
+                case "GET_MODE":
+                    updateModeText();
+                    return "OK";
+                case "GET_IMAGE_THUMBS":
+                    return fetchImageThumbs();
+                default:
+                    return sendCommand(str[0]);
             }
         }
         else if(str.length == 2) {
@@ -132,8 +137,8 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
 
             StartActivity.runOnUI(() -> {
                 StartActivity act = (StartActivity)parentActivity;
-                ImageView view = act.findViewById(R.id.debugImageView);
-                view.setImageBitmap(decodeBase64(finalResData));
+                // ImageView view = act.findViewById(R.id.debugImageView);
+                // view.setImageBitmap(decodeBase64(finalResData));
             });
 
 
@@ -151,6 +156,39 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
         catch (Exception e) {
             System.out.println("Exception: " + e);
             return null;
+        }
+    }
+
+    /**
+     * 画面右上のステータスのアップデート
+     */
+    private void updateModeText() {
+        try {
+            InputStream in = socket.getInputStream();
+            OutputStream out = socket.getOutputStream();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+
+            bw.write("GET_MODE" + "\n");
+            bw.flush();
+
+            String res = br.readLine();
+
+            StartActivity.runOnUI(() -> {
+                StartActivity act = (StartActivity)parentActivity;
+                TextView view = act.findViewById(R.id.connectionText);
+                String txt = "CONNECTED - " + res;
+                view.setText(txt);
+            });
+
+            // 終了処理
+            in.close();
+            out.close();
+            socket.close();
+        }
+        catch (Exception e) {
+            System.out.println("Exception: " + e);
         }
     }
 
