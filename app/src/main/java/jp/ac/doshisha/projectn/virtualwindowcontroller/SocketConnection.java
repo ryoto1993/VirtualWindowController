@@ -8,8 +8,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Base64;
-import android.util.Log;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,9 +66,11 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
         if (str.length == 1) {
             switch (str[0]) {
                 case "IMAGE":
-                    String res = sendCommand("IMAGE");
-                    if (res.equals("OK")) {
-                        Intent intent_image = new Intent(parentActivity, ImageActivity.class);
+                case "VIDEO":
+                    String res_i = sendCommand(str[0]);
+                    if (res_i.equals("OK")) {
+                        Intent intent_image = new Intent(parentActivity, ThumbsActivity.class);
+                        intent_image.putExtra("MODE", str[0]);
                         parentActivity.startActivity(intent_image);
                     }
                     return "OK";
@@ -78,7 +78,9 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
                     updateModeText();
                     return "OK";
                 case "GET_IMAGE_THUMBS":
-                    return fetchImageThumbs();
+                    return fetchImageThumbs("GET_IMAGE_THUMBS");
+                case "GET_VIDEO_THUMBS":
+                    return fetchImageThumbs("GET_VIDEO_THUMBS");
                 default:
                     return sendCommand(str[0]);
             }
@@ -126,7 +128,7 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
      * このメソッドはImageActivityからしか呼び出せません！
      * @return
      */
-    private String fetchImageThumbs() {
+    private String fetchImageThumbs(String command) {
         try {
             InputStream in = socket.getInputStream();
             OutputStream out = socket.getOutputStream();
@@ -134,14 +136,13 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
             BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
 
-            bw.write("GET_IMAGE_THUMBS" + "\n");
+            bw.write(command + "\n");
             bw.flush();
+
+            ThumbsActivity act = (ThumbsActivity) parentActivity;
 
             // サーバからサムネイル数を待機
             int num = Integer.parseInt(br.readLine());
-
-            // ImageActivityにボタンを生成
-            ImageActivity act = (ImageActivity)parentActivity;
 
             String resData;
             for (int i=0; i<num; i++) {
@@ -149,12 +150,7 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
                 resData = br.readLine();
                 String finalResData = resData;
 
-                Thread test = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        act.addThumbnailButton(decodeBase64(finalResData));
-                    }
-                });
+                Thread test = new Thread(() -> act.addThumbnailButton(decodeBase64(finalResData)));
 
                 act.runOnUI(test);
 
@@ -181,6 +177,7 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
             return null;
         }
     }
+
 
     /**
      * 画面右上のステータスのアップデート

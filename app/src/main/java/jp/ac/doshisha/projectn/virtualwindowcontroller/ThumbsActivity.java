@@ -1,37 +1,43 @@
 package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-public class ImageActivity extends AppCompatActivity {
+public class ThumbsActivity extends AppCompatActivity {
     Handler UIHandler = new Handler(Looper.getMainLooper());
     private int buttonIdCounter = 1;
     private int buttonAreaWidth;
     private int stackWidth = 0;
     private RelativeLayout buttonArea;
+    private String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image);
+        setContentView(R.layout.activity_thumbs);
+
+        // Get intent
+        Intent intent = getIntent();
+        mode = intent.getStringExtra("MODE");
 
         // Send fetch thumbs command
-        new SocketConnection(this).execute("GET_IMAGE_THUMBS");
+        switch (mode) {
+            case "IMAGE":
+                new SocketConnection(this).execute("GET_IMAGE_THUMBS");
+                break;
+            case "VIDEO":
+                new SocketConnection(this).execute("GET_VIDEO_THUMBS");
+                break;
+        }
+
 
         buttonArea = findViewById(R.id.buttonArea);
     }
@@ -53,7 +59,15 @@ public class ImageActivity extends AppCompatActivity {
             default:
                 int id = view.getId();
                 id--;
-                new SocketConnection(this).execute("SET_IMAGE_BY_ID", String.valueOf(id));
+                switch (mode) {
+                    case "IMAGE":
+                        new SocketConnection(this).execute("SET_IMAGE_BY_ID", String.valueOf(id));
+                        break;
+                    case "VIDEO":
+                        new SocketConnection(this).execute("SET_VIDEO_BY_ID", String.valueOf(id));
+                        break;
+                }
+
         }
     }
 
@@ -96,7 +110,5 @@ public class ImageActivity extends AppCompatActivity {
             btn.setLayoutParams(prm);
             stackWidth += bmp.getWidth();
         }
-
     }
-
 }
