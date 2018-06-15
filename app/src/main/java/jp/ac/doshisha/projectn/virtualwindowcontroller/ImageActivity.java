@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,11 +20,9 @@ import android.widget.RelativeLayout;
 
 public class ImageActivity extends AppCompatActivity {
     Handler UIHandler = new Handler(Looper.getMainLooper());
-    private static int buttonIdCounter = 0;
+    private int buttonIdCounter = 1;
     private int buttonAreaWidth;
-    private int buttonWidth;
     private int stackWidth = 0;
-    private final int margin = 5;
     private RelativeLayout buttonArea;
 
     @Override
@@ -51,6 +50,8 @@ public class ImageActivity extends AppCompatActivity {
             case R.id.button_home:
                 finish();
                 break;
+            default:
+                System.out.println(view.getId());
         }
     }
 
@@ -61,6 +62,7 @@ public class ImageActivity extends AppCompatActivity {
         btn.setImageBitmap(bmp);
         btn.setBackground(getDrawable(R.drawable.ripple_button));
         btn.setId(buttonIdCounter++);
+        btn.setOnClickListener(this::buttonOnClick);
 
         // Get relative layout params of new ImageButton
         RelativeLayout.LayoutParams prm = new RelativeLayout.LayoutParams(
@@ -75,17 +77,18 @@ public class ImageActivity extends AppCompatActivity {
             prevId -= 1;
 
             // The case next button has to place next line
-            if (buttonAreaWidth - (bmp.getWidth() + stackWidth + margin*2) < 0) {
+            int margin = 7;
+            if (buttonAreaWidth - (bmp.getWidth() + stackWidth + margin *2) < 0) {
                 stackWidth = 0;
                 prm.addRule(RelativeLayout.BELOW, prevId);
                 prm.addRule(RelativeLayout.ALIGN_LEFT, RelativeLayout.TRUE);
-                prm.setMargins(5 , 5, 5, 5);
+                prm.setMargins(margin , margin*2, margin, margin*2);
             }
             // The case next button can be placed next to previous button
             else {
                 prm.addRule(RelativeLayout.ALIGN_TOP, prevId);
                 prm.addRule(RelativeLayout.RIGHT_OF, prevId);
-                prm.setMargins(5 , 0, 5, 0);
+                prm.setMargins(margin , 0, margin, 0);
             }
 
             btn.setLayoutParams(prm);
