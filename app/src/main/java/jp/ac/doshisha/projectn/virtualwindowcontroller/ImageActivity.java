@@ -51,7 +51,9 @@ public class ImageActivity extends AppCompatActivity {
                 finish();
                 break;
             default:
-                System.out.println(view.getId());
+                int id = view.getId();
+                id--;
+                new SocketConnection(this).execute("SET_IMAGE_BY_ID", String.valueOf(id));
         }
     }
 
