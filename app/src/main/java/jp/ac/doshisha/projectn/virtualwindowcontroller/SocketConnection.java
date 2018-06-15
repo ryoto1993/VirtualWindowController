@@ -57,7 +57,7 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
         try {
             System.out.println("IP:" + IP_ADDRESS + " PORT:" + PORT);
             socket = new Socket();
-            socket.connect(endpoint, 1000);
+            socket.connect(endpoint, 2000);
         } catch (IOException e) {
             e.printStackTrace();
             handler.post(() -> Toast.makeText(StartActivity.getAppContext(), R.string.toast_connection_error, Toast.LENGTH_LONG).show());
@@ -138,7 +138,9 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
 
             // サーバからサムネイル数を待機
             int num = Integer.parseInt(br.readLine());
-            System.out.println(num);
+
+            // ImageActivityにボタンを生成
+            ImageActivity act = (ImageActivity)parentActivity;
 
             String resData;
             for (int i=0; i<num; i++) {
@@ -146,11 +148,20 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
                 resData = br.readLine();
                 String finalResData = resData;
 
-                ImageActivity act = (ImageActivity)parentActivity;
-                act.runOnUI(() -> {
-                    System.out.println(finalResData);
-                    act.addThumbnailButton(decodeBase64(finalResData));
+                Thread test = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        act.addThumbnailButton(decodeBase64(finalResData));
+                    }
                 });
+
+                act.runOnUI(test);
+
+                try {
+                    test.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             // 最終レスポンス
