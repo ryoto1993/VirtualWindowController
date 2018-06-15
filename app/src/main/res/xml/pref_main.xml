@@ -13,4 +13,16 @@
             android:title="@string/pref_port_title" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+            android:key="pref_ui_settings"
+            android:title="@string/pref_ui_title">
+        <ListPreference
+                android:key="pref_thumbnail_count"
+                android:title="@string/pref_thumb_count_title"
+                android:summary="ListPreference"
+                android:entries="@array/entries_thumb_count_preference"
+                android:entryValues="@array/entry_values_thumb_count_preference"
+                android:dialogTitle="ListPreference" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

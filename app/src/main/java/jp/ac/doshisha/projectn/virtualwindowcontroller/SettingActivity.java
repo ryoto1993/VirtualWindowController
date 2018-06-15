@@ -1,6 +1,8 @@
 package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -58,6 +60,12 @@ public class SettingActivity extends PreferenceActivity {
 
             final String port = sp.getString("pref_port", "");
             findPreference("pref_port").setSummary(port);
+
+            Resources res = getResources();
+            TypedArray ta = res.obtainTypedArray(R.array.entry_values_thumb_count_preference);
+            int index = 1;
+            final String count = sp.getString("pref_thumbnail_count", ta.getString(index));
+            findPreference("pref_thumbnail_count").setSummary(String.valueOf(count) + "列");
         }
 
         @Override

@@ -1,21 +1,24 @@
 package jp.ac.doshisha.projectn.virtualwindowcontroller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.*;
 
 public class ThumbsActivity extends AppCompatActivity {
     Handler UIHandler = new Handler(Looper.getMainLooper());
     private int buttonIdCounter = 1;
     private int buttonAreaWidth;
     private int stackWidth = 0;
+    private static int thumbsRowNum;
+    private static int margin = 7;
+    private static int padding = 13;
     private RelativeLayout buttonArea;
     private String mode;
 
@@ -29,15 +32,22 @@ public class ThumbsActivity extends AppCompatActivity {
         mode = intent.getStringExtra("MODE");
 
         // Send fetch thumbs command
+        TextView title = findViewById(R.id.titleText);
         switch (mode) {
             case "IMAGE":
                 new SocketConnection(this).execute("GET_IMAGE_THUMBS");
+                title.setText("擬似窓システム - 静止画表示モード");
                 break;
             case "VIDEO":
                 new SocketConnection(this).execute("GET_VIDEO_THUMBS");
+                title.setText("擬似窓システム - 動画表示モード");
                 break;
         }
 
+        // Load preferences
+        String def = "3";
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        thumbsRowNum = Integer.parseInt(sp.getString("pref_thumbnail_count", def));
 
         buttonArea = findViewById(R.id.buttonArea);
     }
@@ -76,6 +86,7 @@ public class ThumbsActivity extends AppCompatActivity {
         // Generate Image button with bitmap sent from server
         ImageButton btn = new ImageButton(this);
         btn.setImageBitmap(bmp);
+        btn.setScaleType(ImageView.ScaleType.CENTER_CROP);
         btn.setBackground(getDrawable(R.drawable.ripple_button));
         btn.setId(buttonIdCounter++);
         btn.setOnClickListener(this::buttonOnClick);
@@ -85,16 +96,22 @@ public class ThumbsActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
 
+        // Add button view into buttonArea
+        prm.width = (buttonAreaWidth / thumbsRowNum) - (margin*2);
+        prm.height = prm.width*130/190;
+        btn.setPadding(padding, padding, padding, padding);
+
         buttonArea.addView(btn, prm);
         btn = buttonArea.findViewById(btn.getId());
+
+        // Modify button's LayoutParams
 
         if (btn.getId() != 0) {
             int prevId = btn.getId();
             prevId -= 1;
 
             // The case next button has to place next line
-            int margin = 7;
-            if (buttonAreaWidth - (bmp.getWidth() + stackWidth + margin *2) < 0) {
+            if (buttonAreaWidth - (prm.width + stackWidth + margin *2) < 0) {
                 stackWidth = 0;
                 prm.addRule(RelativeLayout.BELOW, prevId);
                 prm.addRule(RelativeLayout.ALIGN_LEFT, RelativeLayout.TRUE);
@@ -108,7 +125,11 @@ public class ThumbsActivity extends AppCompatActivity {
             }
 
             btn.setLayoutParams(prm);
-            stackWidth += bmp.getWidth();
+            stackWidth += prm.width;
         }
+    }
+
+    public static void setThumbsRowNum(int num) {
+        thumbsRowNum = num;
     }
 }
