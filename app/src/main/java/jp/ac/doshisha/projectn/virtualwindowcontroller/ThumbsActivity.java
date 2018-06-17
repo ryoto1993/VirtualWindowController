@@ -39,7 +39,7 @@ public class ThumbsActivity extends AppCompatActivity {
         mode = intent.getStringExtra("MODE");
 
         // Send fetch thumbs command
-        TextView title = findViewById(R.id.doshishaText);
+        TextView title = findViewById(R.id.titleText);
         switch (mode) {
             case "IMAGE":
                 new SocketConnection(this).execute("GET_IMAGE_THUMBS");
