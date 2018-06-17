@@ -9,13 +9,42 @@
         android:background="@drawable/sky_back4">
 
 
+    <ImageView
+            android:id="@+id/logo_doshisha"
+            android:layout_width="23dp" android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="@id/doshishaText" app:layout_constraintBottom_toBottomOf="@id/doshishaText"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/logos_d"/>
     <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content" android:id="@+id/titleText" android:layout_weight="1"
+            android:layout_height="wrap_content" android:id="@+id/doshishaText" android:layout_weight="1"
             android:textColor="@color/buttonWhite" android:textSize="24sp" android:textAlignment="textStart"
-            android:text="debug" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"/>
+            android:text="@string/text_doshisha" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintStart_toEndOf="@id/logo_doshisha"
+            android:layout_marginStart="4dp"/>
+    <ImageView
+            android:id="@+id/logo_nara"
+            android:layout_width="30dp" android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintTop_toTopOf="@id/doshishaText" app:layout_constraintBottom_toBottomOf="@id/doshishaText"
+            app:layout_constraintStart_toEndOf="@id/doshishaText"
+            android:src="@drawable/logos_n"/>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/naraText" android:layout_weight="1"
+            android:textColor="@color/buttonWhite" android:textSize="24sp" android:textAlignment="textStart"
+            android:text="@string/text_nara" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintStart_toEndOf="@id/logo_nara"
+            android:layout_marginStart="4dp"/>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/systemText" android:layout_weight="1"
+            android:textColor="@color/buttonWhite" android:textSize="24sp" android:textAlignment="textStart"
+            android:text="@string/text_system_name" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintStart_toEndOf="@id/naraText"
+            android:layout_marginStart="4dp"/>
+
     <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content" android:id="@+id/connectionText" android:layout_weight="1"
@@ -30,7 +59,7 @@
             android:layout_height="0dp" android:id="@+id/side_bar"
             android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleText"
+            app:layout_constraintTop_toBottomOf="@id/doshishaText"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp">
 
@@ -75,7 +104,7 @@
             android:layout_width="0dp" android:layout_height="0dp"
             app:layout_constraintStart_toEndOf="@id/side_bar"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintTop_toBottomOf="@id/titleText"
+            app:layout_constraintTop_toBottomOf="@id/doshishaText"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp">
         <LinearLayout
