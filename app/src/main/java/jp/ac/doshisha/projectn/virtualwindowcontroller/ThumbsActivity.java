@@ -25,14 +25,21 @@ public class ThumbsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Nav barの非表示化
+        View decor = this.getWindow().getDecorView();
+        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
         setContentView(R.layout.activity_thumbs);
+
 
         // Get intent
         Intent intent = getIntent();
         mode = intent.getStringExtra("MODE");
 
         // Send fetch thumbs command
-        TextView title = findViewById(R.id.titleText);
+        TextView title = findViewById(R.id.doshishaText);
         switch (mode) {
             case "IMAGE":
                 new SocketConnection(this).execute("GET_IMAGE_THUMBS");
@@ -50,6 +57,13 @@ public class ThumbsActivity extends AppCompatActivity {
         thumbsRowNum = Integer.parseInt(sp.getString("pref_thumbnail_count", def));
 
         buttonArea = findViewById(R.id.buttonArea);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
     }
 
     @Override
