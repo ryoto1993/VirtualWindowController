@@ -70,7 +70,8 @@
                 android:drawableStart="@drawable/arrow_right"
                 android:onClick="buttonOnClick"
                 android:layout_marginBottom="8dp" android:text="@string/btn_next"
-                android:textSize="@dimen/btn_sideTextSize"/>
+                android:textSize="@dimen/btn_sideTextSize"
+                android:paddingStart="@dimen/sidebar_padding_start"/>
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/sidebar_button_height" android:id="@+id/button_previous"
@@ -78,7 +79,8 @@
                 android:drawableStart="@drawable/arrow_left"
                 android:onClick="buttonOnClick"
                 android:layout_marginBottom="8dp" android:text="@string/btn_previous"
-                android:textSize="@dimen/btn_sideTextSize"/>
+                android:textSize="@dimen/btn_sideTextSize"
+                android:paddingStart="@dimen/sidebar_padding_start"/>
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/sidebar_button_height" android:id="@+id/button_home"
@@ -86,7 +88,8 @@
                 android:drawableStart="@drawable/home"
                 android:onClick="buttonOnClick"
                 android:layout_marginBottom="8dp" android:text="@string/btn_menu"
-                android:textSize="@dimen/btn_sideTextSize"/>
+                android:textSize="@dimen/btn_sideTextSize"
+                android:paddingStart="@dimen/sidebar_padding_start"/>
     </LinearLayout>
     <Button
             android:layout_width="@dimen/sidebar_width"
@@ -97,7 +100,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="16dp"
-            android:layout_marginStart="16dp"/>
+            android:layout_marginStart="16dp"
+            android:paddingStart="@dimen/sidebar_padding_start"/>
     <LinearLayout
             android:id="@+id/main_layout"
             android:orientation="vertical"
@@ -118,7 +122,9 @@
                     android:textSize="@dimen/btn_textSize"
                     android:background="@drawable/ripple_button" android:layout_margin="8dp"
                     style="@android:style/Widget.Button" android:onClick="buttonOnClick"
-                    android:textColor="@color/buttonWhite" tools:ignore="NestedWeights"/>
+                    android:textColor="@color/buttonWhite" tools:ignore="NestedWeights"
+                    android:drawableTop="@drawable/camcorder"
+                    android:paddingTop="@dimen/btn_main_padding_top" android:paddingBottom="@dimen/btn_main_padding_bottom"/>
             <Button
                     android:text="@string/btn_blank"
                     android:layout_width="match_parent"
@@ -126,7 +132,9 @@
                     android:textSize="@dimen/btn_textSize"
                     android:background="@drawable/ripple_button" android:layout_margin="8dp" android:layout_weight="1"
                     style="@android:style/Widget.Button" android:onClick="buttonOnClick"
-                    android:textColor="@color/buttonWhite"/>
+                    android:textColor="@color/buttonWhite"
+                    android:drawableTop="@drawable/television_off"
+                    android:paddingTop="@dimen/btn_main_padding_top" android:paddingBottom="@dimen/btn_main_padding_bottom"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="horizontal"
@@ -139,7 +147,9 @@
                     android:textSize="@dimen/btn_textSize"
                     android:background="@drawable/ripple_button" android:layout_margin="8dp"
                     style="@android:style/Widget.Button" android:onClick="buttonOnClick"
-                    android:textColor="@color/buttonWhite"/>
+                    android:textColor="@color/buttonWhite"
+                    android:drawableTop="@drawable/image"
+                    android:paddingTop="@dimen/btn_main_padding_top" android:paddingBottom="@dimen/btn_main_padding_bottom"/>
             <Button
                     android:text="@string/btn_video"
                     android:layout_width="match_parent"
@@ -147,7 +157,9 @@
                     android:textSize="@dimen/btn_textSize"
                     android:background="@drawable/ripple_button" android:layout_margin="8dp"
                     style="@android:style/Widget.Button" android:onClick="buttonOnClick"
-                    android:textColor="@color/buttonWhite"/>
+                    android:textColor="@color/buttonWhite"
+                    android:drawableTop="@drawable/filmstrip"
+                    android:paddingTop="@dimen/btn_main_padding_top" android:paddingBottom="@dimen/btn_main_padding_bottom"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
