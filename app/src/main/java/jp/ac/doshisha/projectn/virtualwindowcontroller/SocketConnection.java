@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +55,7 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
     protected String doInBackground(String... str) {
         InetSocketAddress endpoint = new InetSocketAddress(IP_ADDRESS, Integer.parseInt(PORT));
         try {
-            System.out.println("IP:" + IP_ADDRESS + " PORT:" + PORT);
+            Log.d("Debug", "IP:" + IP_ADDRESS + " PORT:" + PORT);
             socket = new Socket();
             socket.connect(endpoint, 2000);
         } catch (IOException e) {
@@ -118,7 +119,7 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
             return resData;
         }
         catch (Exception e) {
-            System.out.println("Exception: " + e);
+            e.printStackTrace();
             return "FAILED TO CONNECT.";
         }
     }
@@ -173,7 +174,7 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
 
         }
         catch (Exception e) {
-            System.out.println("Exception: " + e);
+            e.printStackTrace();
             return null;
         }
     }
@@ -208,7 +209,7 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
             socket.close();
         }
         catch (Exception e) {
-            System.out.println("Exception: " + e);
+            e.printStackTrace();
         }
     }
 
@@ -220,7 +221,7 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
 
     @Override
     protected void onPostExecute(String s) {
-        System.out.println(s);
+        Log.d("Debug", s);
     }
 }
 
