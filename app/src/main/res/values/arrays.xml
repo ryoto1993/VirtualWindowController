@@ -14,4 +14,13 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+
+    <string-array name="entries_theme_preference">
+        <item>Sky</item>
+        <item>Green</item>
+    </string-array>
+    <string-array name="entry_values_theme_preference">
+        <item>back_sky</item>
+        <item>back_green</item>
+    </string-array>
 </resources>

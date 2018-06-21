@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="apk" name="VW-Controller">
+    <output-path>$PROJECT_DIR$/build/classes/artifacts/VW_Controller</output-path>
+    <properties id="android-properties">
+      <options>
+        <option name="keyAlias" value="key0" />
+        <option name="keyPassword" value="YTEwNTk1Njk1MkE=" />
+        <option name="keyStorePassword" value="YTEwNTk1Njk1MkE=" />
+        <option name="keyStoreUrl" value="file://$USER_HOME$/OneDrive/Devs/AndroidCertificationKeyStore/VW-controller.jks" />
+        <option name="signingMode" value="RELEASE_SIGNED" />
+      </options>
+    </properties>
+    <root id="archive" name="VW-Controller.apk">
+      <element id="android-final-package" facet="app/android/Android" />
+      <element id="module-output" name="app" />
+    </root>
+  </artifact>
+</component>

@@ -3,6 +3,7 @@ package jp.ac.doshisha.projectn.virtualwindowcontroller;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -62,10 +63,20 @@ public class SettingActivity extends PreferenceActivity {
             findPreference("pref_port").setSummary(port);
 
             Resources res = getResources();
+            int default_index = 1;
+
             TypedArray ta = res.obtainTypedArray(R.array.entry_values_thumb_count_preference);
-            int index = 1;
-            final String count = sp.getString("pref_thumbnail_count", ta.getString(index));
+            String count = sp.getString("pref_thumbnail_count", ta.getString(default_index));
             findPreference("pref_thumbnail_count").setSummary(String.valueOf(count) + "列");
+
+            TypedArray theme = res.obtainTypedArray(R.array.entries_theme_preference);
+            ListPreference lp = (ListPreference) findPreference("pref_theme");
+            String v = lp.getValue();
+            if (v == null) {
+                v = theme.getString(default_index);
+            }
+            String str_theme = sp.getString("pref_theme", theme.getString(default_index));
+            findPreference("pref_theme").setSummary(String.valueOf(str_theme));
         }
 
         @Override

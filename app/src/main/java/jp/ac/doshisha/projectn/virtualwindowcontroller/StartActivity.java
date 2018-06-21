@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -33,6 +34,15 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // テーマの設定
+        String def = "back_sky";
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String theme = sp.getString("pref_theme", def);
+        int strId = getResources().getIdentifier(theme, "drawable", getPackageName());
+
+        ConstraintLayout layout = findViewById(R.id.start_layout);
+        layout.setBackground(getDrawable(strId));
 
         // Nav barの非表示化
         View decor = this.getWindow().getDecorView();
