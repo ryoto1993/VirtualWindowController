@@ -151,7 +151,4 @@ public class ThumbsActivity extends AppCompatActivity {
         }
     }
 
-    public static void setThumbsRowNum(int num) {
-        thumbsRowNum = num;
-    }
 }

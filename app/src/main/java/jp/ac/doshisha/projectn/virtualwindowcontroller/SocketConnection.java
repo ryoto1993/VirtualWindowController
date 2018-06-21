@@ -145,18 +145,21 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
             // サーバからサムネイル数を待機
             int num = Integer.parseInt(br.readLine());
 
+            // Layoutの整形のため微小時間待機
+            Thread.sleep(300);
+
             String resData;
             for (int i=0; i<num; i++) {
                 // Read Images as base64 string
                 resData = br.readLine();
                 String finalResData = resData;
 
-                Thread test = new Thread(() -> act.addThumbnailButton(decodeBase64(finalResData)));
+                Thread thread = new Thread(() -> act.addThumbnailButton(decodeBase64(finalResData)));
 
-                act.runOnUI(test);
+                act.runOnUI(thread);
 
                 try {
-                    test.join();
+                    thread.join();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
