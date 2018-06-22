@@ -22,8 +22,8 @@ public class StartActivity extends AppCompatActivity {
 
         // Socketの設定
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        SocketConnection.setIpAddress(sp.getString("pref_ip", ""));
-        SocketConnection.setPORT(sp.getString("pref_port", ""));
+        SocketConnection.setIpAddress(sp.getString("pref_ip", "192.168.10.10"));
+        SocketConnection.setPORT(sp.getString("pref_port", "50005"));
 
         // Connectionの確認
         new SocketConnection(this).execute("GET_MODE");

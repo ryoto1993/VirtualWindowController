@@ -145,6 +145,7 @@ public class SocketConnection extends AsyncTask<String, Void, String>{
             // サーバからサムネイル数を待機
             int num = Integer.parseInt(br.readLine());
 
+            // ToDo: Change to other good way
             // Layoutの整形のため微小時間待機
             Thread.sleep(300);
 
