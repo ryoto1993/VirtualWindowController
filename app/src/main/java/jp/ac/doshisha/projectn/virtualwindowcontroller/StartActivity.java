@@ -80,6 +80,9 @@ public class StartActivity extends AppCompatActivity {
                 new SocketConnection(this).execute("HOME");
                 new SocketConnection(this).execute("GET_MODE");
                 break;
+            case R.id.button_fullscreen:
+                new SocketConnection(this).execute("TOGGLE_FULLSCREEN");
+                break;
             case R.id.button_next:
                 new SocketConnection(this).execute("NEXT");
                 break;

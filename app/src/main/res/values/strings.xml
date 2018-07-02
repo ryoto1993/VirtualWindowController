@@ -9,6 +9,7 @@
     <string name="btn_next">次画像・動画</string>
     <string name="btn_previous">前画像・動画</string>
     <string name="btn_menu">ホーム画面</string>
+    <string name="btn_fullscreen">全画面表示</string>
     <string name="btn_back">ホーム画面</string>
     <string name="toast_connection_error">接続エラー</string>
     <string name="text_default_status">接続を確認してください</string>

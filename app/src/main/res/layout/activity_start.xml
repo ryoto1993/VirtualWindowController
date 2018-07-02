@@ -91,6 +91,16 @@
                 android:layout_marginBottom="8dp" android:text="@string/btn_menu"
                 android:textSize="@dimen/btn_sideTextSize"
                 android:paddingStart="@dimen/sidebar_padding_start" android:paddingEnd="@dimen/sidebar_padding_end"/>
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sidebar_button_height" android:id="@+id/button_fullscreen"
+                android:background="@drawable/ripple_button" android:textColor="@color/buttonWhite"
+                android:drawableStart="@drawable/fullscreen"
+                android:onClick="buttonOnClick"
+                android:layout_marginBottom="8dp" android:text="@string/btn_fullscreen"
+                android:textSize="@dimen/btn_sideTextSize"
+                android:paddingStart="@dimen/sidebar_padding_start" android:paddingEnd="@dimen/sidebar_padding_end"/>
     </LinearLayout>
     <Button
             android:layout_width="@dimen/sidebar_width"
